@@ -1,0 +1,24 @@
+{
+  "name": "play_sf",
+  "version": "1.0.0",
+  "description": "Testing Salesforce with Playwright",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --timeout 30000"
+  },
+  "keywords": [
+    "Playwright",
+    "Salesforce"
+  ],
+  "author": "MVP",
+  "license": "ISC",
+  "devDependencies": {
+    "autoit": "^1.1.11",
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1",
+    "playwright": "^1.1.1"
+  }
+}
