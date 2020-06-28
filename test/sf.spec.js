@@ -9,36 +9,6 @@ let page, browser, context
 
 describe('Test SalesForce Chatter Functionality', () => {
 
-    before(async () => {
-        // Initialising AutoIt
-        au.Init();
-        // const browser = await chromium.launch({ headless: false, slowMo:50,  devtools: true});
-        // browser = await firefox.launch({ headless: false, slowMo: 50 });
-        browser = await firefox.launch({ headless: false, slowMo: 50 });
-        // Create a context
-        context = await browser.newContext({ acceptDownloads: true });
-        // browser.ov
-        await context.grantPermissions(['notifications'], "https://resourceful-bear-mjuv0o-dev-ed.my.salesforce.com")
-    });
-
-    after(async () => {
-        await context.close()
-        await browser.close();
-    });
-
-    beforeEach(async () => {
-        // let isLogged = true;
-        // Create a page.
-        page = await context.newPage();
-        // Login to SF
-        await login(page).catch(error => console.log("Error is::", error));
-    });
-
-    afterEach(async () => {
-        await page.close();
-        await context.clearCookies();
-    });
-
     async function login(page) {
         // const sf_playgnd_url = "https://resourceful-bear-mjuv0o-dev-ed.lightning.force.com/lightning/page/home"
         const sf_playgnd_url = "https://resourceful-bear-mjuv0o-dev-ed.my.salesforce.com/0052o000009KWCN?noredirect=1&isUserEntityOverride=1";
@@ -109,6 +79,37 @@ describe('Test SalesForce Chatter Functionality', () => {
         // console.log("filename::", download.suggestedFilename());
         // console.log('url::' + download.url());
     }
+
+
+    before(async () => {
+        // Initialising AutoIt
+        au.Init();
+        // const browser = await chromium.launch({ headless: false, slowMo:50,  devtools: true});
+        // browser = await firefox.launch({ headless: false, slowMo: 50 });
+        browser = await firefox.launch({ headless: false, slowMo: 50 });
+        // Create a context
+        context = await browser.newContext({ acceptDownloads: true });
+        // browser.ov
+        await context.grantPermissions(['notifications'], "https://resourceful-bear-mjuv0o-dev-ed.my.salesforce.com")
+    });
+
+    after(async () => {
+        await context.close()
+        await browser.close();
+    });
+
+    beforeEach(async () => {
+        // let isLogged = true;
+        // Create a page.
+        page = await context.newPage();
+        // Login to SF
+        await login(page).catch(error => console.log("Error is::", error));
+    });
+
+    afterEach(async () => {
+        await page.close();
+        await context.clearCookies();
+    });
 
     it('should attach file & Verify Download', async function () {
         // go to chatter and do actions there
