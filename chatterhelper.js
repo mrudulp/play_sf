@@ -1,9 +1,9 @@
-// var au = require('autoit');
-
 /**
  * Uploads a local file using AutoIt apis
  * (Known Issue: AutoIt is sometimes too eager to type and as a result keys in text even before dialog is ready for the keyboard input.
  * This causes partial path field leading to error)
+ * @param {string} uploadFileName Full path of filename that needs to be uploaded
+ * @param {AutoIt} au AutoIt handle
  *
  */
 function uploadFile(uploadFileName,au) {
@@ -15,9 +15,10 @@ function uploadFile(uploadFileName,au) {
 
 /**
  * Share Attachment in chatter after file is uploaded
+ * It read environment variable UPLOADFILENAME to find the full path of filename to be uploaded
  *
  * @param {Page} page Page Object
- * @param {string} uploadFileName Full path of file to be uploaded
+ * @param {AutoIt} au AutoIt handle
  */
 async function shareAttachment(page, au) {
     await page.click("button[title='Share']");
