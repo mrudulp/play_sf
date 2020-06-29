@@ -1,9 +1,9 @@
 const { firefox } = require('playwright');
 var au = require('autoit');
 
-var sfh =require('../sfhelper');
-var chatter = require('../chatterhelper');
-var utils = require('../utils');
+var sfh = require('../src/sfhelper');
+var chatter = require('../src/chatterhelper');
+var utils = require('../src/utils');
 
 const chai = require('chai')
 const expect = chai.expect
@@ -33,6 +33,10 @@ describe('Test SalesForce Chatter Functionality', () => {
         page = await context.newPage();
         // Login to SF
         await sfh.login(page).catch(error => console.log("Error is::", error));
+        await sfh.goToChatter(page);
+        let hasChatterFeed = true;
+        await chatter.clearChat(page).catch(e => { console.log("Nothing found in chatter ignoring..."); hasChatterFeed = false });
+        if (!hasChatterFeed) await page.focus('.feed-content');
     });
 
     afterEach(async () => {
@@ -41,18 +45,12 @@ describe('Test SalesForce Chatter Functionality', () => {
     });
 
     it('should attach file & Verify Download', async function () {
-        // go to chatter and do actions there
-        const uploadFileName =  " C:\\Users\\MrudulPendharkar\\devel\\devspace\\js\\playwright\\hellow\\helloworld.txt";
-        await sfh.goToChatter(page);
-        await chatter.clearChat(page).catch(e => console.log("Nothing found in chatter ignoring..."));
         await chatter.shareAttachment(page, au);
         const downloadFileName = await utils.getDownloadFileName(page);
         expect(downloadFileName).to.equal("helloworld.txt");
     });
 
     it('should add a message with url & verify url on clicking', async function () {
-        await sfh.goToChatter(page);
-        await chatter.clearChat(page).catch(e => console.log("Nothing found in chatter ignoring..."));
         await chatter.sharegUrl(page);
         const redirectUrl = await utils.getRedirectUrl(page);
         expect(redirectUrl).to.equal("https://www.google.com/");

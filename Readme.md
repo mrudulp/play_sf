@@ -28,7 +28,7 @@ Mocha is used a test runner and playwright as automation framework
 # Known Issues
 
  * AutoIt is sometimes too eager to type and as a result; it keys in text even before dialog is ready for the keyboard input.This causes partial path field being entered in the input box
- *  There is bug with Clear Chat. It Assumes atleast one chat message is present in the chatter. If cannot find the chat message the code gets stuck.
+ *  ~~There is bug with Clear Chat. It Assumes atleast one chat message is present in the chatter. If cannot find the chat message the code gets stuck.~~
  *  Tests can fail due to clear chat bug. Known solution at the moment is to create atleast one chat message.
 
 # Improvements

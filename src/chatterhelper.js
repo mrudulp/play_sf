@@ -29,6 +29,7 @@ async function shareAttachment(page, au) {
     await page.click('button.attachButton');
     const uploadFileName = process.env.UPLOADFILENAME
     uploadFile(uploadFileName, au);
+    await page.waitForSelector('button.cuf-publisherShareButton');
     await page.click('button.cuf-publisherShareButton');
 }
 
@@ -41,6 +42,7 @@ async function sharegUrl(page) {
     await page.click("button[title='Share']");
     await page.click('div.ql-editor');
     await page.$eval('div.ql-editor', el => { return el.innerText = "https://www.google.com" });
+    await page.waitForSelector('button.cuf-publisherShareButton');
     await page.click('button.cuf-publisherShareButton');
 }
 
@@ -52,6 +54,7 @@ async function sharegUrl(page) {
  * @param {Page} page Page Object
  */
 async function clearChat(page) {
+    await page.click('.cuf-feedElement')
     await page.click('div.cuf-feedItemActionTrigger')
     await page.click('text=Delete');
     await page.click('button[title="Delete"]')
